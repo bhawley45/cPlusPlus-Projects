@@ -1,9 +1,9 @@
 #include "raylib.h"
 
-void handleMovement(int &x) // reference to x to prevent taking an uneccessary copy
+void handleMovement(int &x, int &windowWidth) // reference to x to prevent taking an uneccessary copy
 {
     // Move circle right
-    if (IsKeyDown(KEY_D) && x < 640)
+    if (IsKeyDown(KEY_D) && x < windowWidth)
     {
         x += 3.5;
     }
@@ -12,6 +12,15 @@ void handleMovement(int &x) // reference to x to prevent taking an uneccessary c
     {
         x -= 3.5;
     }
+}
+
+void moveAxe(int &y, int &direction, int &windowHeight)
+{
+    if (y > windowHeight || y < 0)
+    {
+        direction *= -1; // Reverse direction if at window border
+    }
+    y += direction; // Move axe
 }
 
 int main()
@@ -28,6 +37,7 @@ int main()
     // Axe coordinates
     int axeX{150};
     int axeY{150};
+    int direction{12};
 
     SetTargetFPS(60);
     while (!WindowShouldClose())
@@ -39,10 +49,8 @@ int main()
         DrawCircle(circleX, circleY, 25, BLUE);
         DrawRectangle(axeX, axeY, 50, 50, GREEN);
 
-        // Move axe
-        axeY += 10;
-
-        handleMovement(circleX);
+        moveAxe(axeY, direction, height);
+        handleMovement(circleX, width);
 
         // End of game
         EndDrawing();
