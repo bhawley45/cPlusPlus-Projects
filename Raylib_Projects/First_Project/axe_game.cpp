@@ -30,14 +30,26 @@ int main()
     int height{480};
     InitWindow(width, height, "Test Window");
 
-    // Circle coordinates
-    int circleX{320};
-    int circleY{240};
+    // Circle properties
+    int circle_X{320};
+    int circle_Y{240};
+    int circle_Rad{25};
+    // Edges
+    int l_circle_X{circle_X - circle_Rad};
+    int r_circle_X{circle_X + circle_Rad};
+    int u_circle_Y{circle_Y - circle_Rad};
+    int b_circle_Y{circle_Y + circle_Rad};
 
-    // Axe coordinates
-    int axeX{150};
-    int axeY{150};
-    int direction{12};
+    // Axe properties
+    int axe_X{150};
+    int axe_Y{150};
+    int axe_Dir{12};
+    int axe_Len{50};
+    // Edges
+    int l_axe_X{axe_X};
+    int r_axe_X{axe_X + axe_Len};
+    int u_axe_Y{axe_Y};
+    int b_axe_Y{axe_Y + axe_Len};
 
     SetTargetFPS(60);
     while (!WindowShouldClose())
@@ -46,11 +58,11 @@ int main()
         ClearBackground(WHITE);
         // Begining of game
 
-        DrawCircle(circleX, circleY, 25, BLUE);
-        DrawRectangle(axeX, axeY, 50, 50, GREEN);
+        DrawCircle(circle_X, circle_Y, circle_Rad, BLUE);
+        DrawRectangle(axe_X, axe_Y, axe_Len, axe_Len, GREEN);
 
-        moveAxe(axeY, direction, height);
-        handleMovement(circleX, width);
+        moveAxe(axe_Y, axe_Dir, height);
+        handleMovement(circle_X, width);
 
         // End of game
         EndDrawing();
